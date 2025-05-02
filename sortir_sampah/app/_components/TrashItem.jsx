@@ -6,7 +6,7 @@ export default function TrashItem({ item }) {
       src={item.image}
       alt={item.name}
       draggable
-      className="w-24 h-24 object-contain"
+      className="w-32 h-32 object-contain"
       onDragStart={(e) => {
         e.dataTransfer.setData('text/plain', item.type);
       }}
