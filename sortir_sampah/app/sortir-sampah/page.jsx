@@ -3,28 +3,38 @@ import { useState, useEffect } from 'react';
 import TrashBin from '../_components/TrashBin';
 import TrashItem from '../_components/TrashItem';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useRouter } from 'next/navigation';
 
 const trashItems = [
-  { name: 'Daun', image: '/images/daun.jpg', type: 'Organik' },
-  { name: 'Botol Plastik', image: '/images/botol.jpg', type: 'Anorganik' },
-  { name: 'Baterai', image: '/images/baterai.jpg', type: 'Berbahaya' },
-  { name: 'Kulit Pisang', image: '/images/kulit-pisang.jpg', type: 'Organik' },
-  { name: 'Kaca', image: '/images/kaca.jpg', type: 'Anorganik' },
-  { name: 'Kaleng', image: '/images/kaleng.jpg', type: 'Anorganik' },
-  { name: 'Obat Kadaluarsa', image: '/images/obat.jpg', type: 'Berbahaya' },
-  { name: 'Kardus', image: '/images/kardus.jpg', type: 'Anorganik' },
-  { name: 'Sisa Makanan', image: '/images/sisa-makanan.jpg', type: 'Organik' },
-  { name: 'Minyak Bekas', image: '/images/minyak.jpg', type: 'Berbahaya' },
-  { name: 'Kertas', image: '/images/kertas.jpg', type: 'Anorganik' },
-  { name: 'Styrofoam', image: '/images/styrofoam.jpg', type: 'Anorganik' },
-  { name: 'Sisa Sayur', image: '/images/sayur.jpg', type: 'Organik' },
-  { name: 'Pestisida', image: '/images/pestisida.jpg', type: 'Berbahaya' },
-  { name: 'Kulit Telur', image: '/images/kulit-telur.jpg', type: 'Organik' },
-  { name: 'Cangkang Kerang', image: '/images/kerang.jpg', type: 'Organik' },
-  { name: 'Kabel Rusak', image: '/images/kabel.jpg', type: 'Anorganik' },
-  { name: 'Obeng Bekas', image: '/images/obeng.jpg', type: 'Anorganik' },
-  { name: 'Termometer Rusak', image: '/images/termometer.jpg', type: 'Berbahaya' },
-  { name: 'Masker Bekas', image: '/images/masker.jpg', type: 'Berbahaya' },
+  { name: 'Daun', image: '/images/daun.jpg', type: 'Organik' }, //
+  { name: 'Botol Plastik', image: '/images/botol.jpg', type: 'Anorganik' },//
+  { name: 'Baterai', image: '/images/baterai.jpg', type: 'Berbahaya' },//
+  { name: 'Kulit Pisang', image: '/images/kulit-pisang.jpg', type: 'Organik' },//
+  { name: 'Kaca', image: '/images/kaca.jpg', type: 'Anorganik' },//
+  { name: 'Kaleng', image: '/images/kaleng.jpg', type: 'Anorganik' },//
+  { name: 'Obat Kadaluarsa', image: '/images/obat.jpg', type: 'Berbahaya' },//
+  { name: 'Kardus', image: '/images/kardus.jpg', type: 'Anorganik' },//
+  { name: 'Sisa Makanan', image: '/images/sisa-makanan.jpg', type: 'Organik' },//
+  { name: 'Minyak Bekas', image: '/images/minyak.jpeg', type: 'Berbahaya' },//
+  { name: 'Kertas', image: '/images/kertas.jpg', type: 'Anorganik' },//
+  { name: 'Styrofoam', image: '/images/styrofoam.jpg', type: 'Anorganik' },//
+  { name: 'Sisa Sayur', image: '/images/sayur.jpeg', type: 'Organik' },//
+  { name: 'Pestisida', image: '/images/pestisida.jpg', type: 'Berbahaya' },//
+  { name: 'Kulit Telur', image: '/images/kulit-telur.jpg', type: 'Organik' },//
+  { name: 'Cangkang Kerang', image: '/images/kerang.jpeg', type: 'Organik' },//
+  { name: 'Kabel Rusak', image: '/images/kabel.jpg', type: 'Anorganik' },//
+  { name: 'Obeng Bekas', image: '/images/obeng.jpg', type: 'Anorganik' },//
+  { name: 'Termometer Rusak', image: '/images/termometer.jpg', type: 'Berbahaya' },//
+  { name: 'Masker Bekas', image: '/images/masker.jpg', type: 'Berbahaya' },//
+  { name: 'Ban Bekas', image: '/images/ban.jpg', type: 'Anorganik' },//
+  { name: 'Kain Perca', image: '/images/kain.jpg', type: 'Organik' },//
+  { name: 'Sampah Makanan Laut', image: '/images/seafood.jpg', type: 'Organik' },//
+  { name: 'CD Rusak', image: '/images/cd.jpg', type: 'Anorganik' },//
+  { name: 'Toner Printer', image: '/images/toner.jpg', type: 'Berbahaya' },//
+  { name: 'Sisa Sabun', image: '/images/sabun.jpg', type: 'Organik' },//
+  { name: 'Jarum Suntik', image: '/images/jarum.jpg', type: 'Berbahaya' },//
+  { name: 'Kemasan Aluminium Foil', image: '/images/foil.jpg', type: 'Anorganik' },//
+  { name: 'Paku Berkarat', image: '/images/paku.jpg', type: 'Anorganik' }
 ];
 
 const trashBins = [
@@ -41,6 +51,7 @@ export default function Home() {
   const [isGameOver, setIsGameOver] = useState(false);
   const [feedback, setFeedback] = useState({ src: '', alt: '' });
   const [showFeedback, setShowFeedback] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     if (remainingItems.length > 0 && questionCount < 15) {
@@ -75,7 +86,7 @@ export default function Home() {
 
   return (
     <div
-      className="flex flex-col relative items-center justify-center min-h-screen bg-green-100 space-y-4"
+      className="flex flex-col relative items-center justify-center min-h-screen bg-green-100 space-y-3"
       style={{ backgroundImage: `url('/images/bg-sortir.png')`, backgroundPositionY: 0 }}
     >
       {!isGameOver && (
@@ -102,6 +113,7 @@ export default function Home() {
             alt={feedback.alt}
             className="w-32 h-32 object-contain drop-shadow-xl"
           />
+          <h1>{feedback.name}</h1>
         </div>
       )}
 
@@ -113,10 +125,23 @@ export default function Home() {
             animate={{ scale: 1.2, opacity: 1 }}
             exit={{ scale: 0, opacity: 0 }}
             transition={{ duration: 0.6, ease: 'easeOut' }}
-            className="text-4xl text-green-800 bg-white border-4 border-green-600 rounded-xl p-6 font-cartoon shadow-lg"
+            className="text-4xl text-green-800 bg-white border-4 border-green-600 rounded-xl p-6 font-cartoon shadow-lg flex flex-col items-center space-y-4"
           >
             🎉 Permainan selesai! <br />
             Skor akhir kamu: <span className="text-6xl font-bold text-orange-500">{score}</span>
+
+            <button
+              onClick={() => {
+                setRemainingItems([...trashItems]);
+                setScore(0);
+                setQuestionCount(0);
+                setIsGameOver(false);
+                setCurrentItem(null);
+              }}
+              className="mt-4 px-6 py-2 text-xl bg-green-600 text-white rounded-lg hover:bg-green-700 transition"
+            >
+              🔄 Main Lagi
+            </button>
           </motion.div>
         </AnimatePresence>
       ) : (
@@ -134,6 +159,7 @@ export default function Home() {
           </div>
         </>
       )}
+      <img src="/images/home.png" alt="" className='w-14 absolute top-10 z-20 left-10 cursor-pointer hover:scale-125' onClick={() => router.push("/")} />
     </div>
   );
 }
