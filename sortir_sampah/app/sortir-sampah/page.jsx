@@ -101,15 +101,14 @@ export default function Home() {
       )}
 
       {!isGameOver && (
-        <div className="text-2xl font-cartoon text-green-900">
+        <div className="text-2xl font-cartoon text-green-950">
           Soal ke {questionCount}
         </div>
       )}
 
       {showFeedback && (
         <div className="absolute top-38">
-          <img
-            src={feedback.src}
+          <img src={feedback.src}
             alt={feedback.alt}
             className="w-32 h-32 object-contain drop-shadow-xl"
           />
@@ -163,3 +162,5 @@ export default function Home() {
     </div>
   );
 }
+
+
