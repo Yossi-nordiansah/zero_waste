@@ -1,0 +1,212 @@
+1. users
+id
+name
+email 
+password
+role
+created_at
+update_at
+
+2. users_providers
+id 
+user_id
+provider
+provider_user_id
+created_at
+
+3. users_addresses
+id
+user_id
+label
+recipient_name
+phone
+address
+city
+province
+postal_code
+is_default
+
+4. products
+id
+brand_id
+name
+slug
+description
+base_price
+gender (men, women, unisex)
+material
+status (active, inactive, draft, archived)
+created_at
+
+5. brands
+id
+name
+slug
+logo
+
+5. shoe_sizes
+id
+size_eu
+size_us
+size_cm
+
+6. product_variants
+id
+product_id
+size_id
+color
+stock
+price_override
+sku (product + size + color harus unique)
+
+7. product_image (sampai sini)
+id
+product_id
+image_url
+is_primay
+
+8. carts
+id
+user_id
+created_at
+
+9. cart_items
+id
+cart_id
+product_id
+variant_id
+quantity
+price_snapshot
+
+10. whislists
+id
+user_id
+product_id
+
+11. orders
+id
+user_id
+order_code
+total_price
+shipping_cost
+payment_status
+order_status
+address_snapshot
+created_at
+
+12. order_items
+id
+order_id
+product_id
+variant_id
+quantity
+price_snapshot
+
+13. payments
+id
+order_id
+payment_method
+payment_gateway
+transaction_id
+status
+paid_at
+
+14. shipping
+id
+order_id
+courier
+service
+tracking_number
+shipped_at
+delivered_at
+
+15. reviews
+id
+user_id
+product_id
+rating
+review
+created_at
+
+16. vouchers
+id
+code
+discount_type
+discount_value
+min_purchase
+max_discount
+expired_at
+
+17. voucher_usage
+id
+voucher_id
+user_id
+order_id
+
+18. banners
+id
+title
+image_url
+link
+is_active
+
+19. notifications
+id
+user_id
+title
+message
+is_read
+created_at
+
+20. activity_logs
+id
+admin_id
+action
+description
+created_at
+
+21. chat_rooms
+id → PK
+customer_id → FK → users.id
+admin_id → FK → users.id (nullable, jika belum ditangani)
+order_id → FK → orders.id (nullable)
+status → open / closed
+created_at
+updated_at
+
+22. chat_messages
+id → PK
+chat_room_id → FK → chat_rooms.id
+sender_id → FK → users.id
+sender_role → customer / admin
+message → text
+message_type → text / image (opsional)
+is_read → boolean
+created_at
+
+23. chat_attachments
+id
+chat_message_id → FK
+file_url
+file_type
+file_size
+
+relasi
+users ───< orders ───< order_items >─── products───< chat_rooms ───< chat_messages
+   │           │
+   │           └── orders (optional)
+   │
+   └── chat_messages (sender)
+   │          │
+   │          └── payments
+   │          └── shipments
+   │
+   ├── carts ───< cart_items
+   ├── reviews
+   ├── wishlists
+   └── user_addresses
+
+products ───< product_variants ─── shoe_sizes
+products ───< product_images
+products ───< reviews
+brands ───< products
